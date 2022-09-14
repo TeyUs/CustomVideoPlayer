@@ -7,6 +7,8 @@
 
 import UIKit
 
+let video_Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+let video_Url2 = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
