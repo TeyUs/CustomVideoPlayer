@@ -14,18 +14,14 @@ class VideoScreenViewController: UIViewController {
     var videoController: VideoControlsView!
     var asset: AVAsset!
     var video:Video!
-
+    var tap: UITapGestureRecognizer!
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return .landscapeRight }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
         setupPlayer()
     }
-
-
-    var tap: UITapGestureRecognizer!
 
     func setupPlayer(){
         player = AVPlayer(url: URL(string: video.url)!)
@@ -46,16 +42,10 @@ class VideoScreenViewController: UIViewController {
         videoController.prepareScreenElements(delegate: self, player: player)
         view.addSubview(videoController)
         view.bringSubviewToFront(videoController)
-
-//        createDoubleCheckTapGesture()
     }
 
     @objc func touchedScreen(_ sender: UITapGestureRecognizer? = nil) {
         shouldControllerAppear(appear: nil)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
 
     func popThePage(){
@@ -77,6 +67,8 @@ class VideoScreenViewController: UIViewController {
     let leftView = UIView()
     let rightView = UIView()
 
+//    MARK: DoubleTap Management(time jump) when Controller UI closed
+
     private func createDoubleCheckTapGesture(){
         leftView.frame = CGRect(x: 0, y: 0 , width: (self.view.frame.height / 2 - 125), height: (self.view.frame.width))
         let leftTap = UITapGestureRecognizer(target: self, action: #selector(backward))
@@ -94,7 +86,6 @@ class VideoScreenViewController: UIViewController {
     }
 
     @objc func backward(){
-        print("****************")
         let wasHidden = videoController.isHidden
         videoController.backwardButtonTapped(0)
         shouldControllerAppear(appear: true)
@@ -108,7 +99,6 @@ class VideoScreenViewController: UIViewController {
     }
 
     @objc func forward(){
-        print("****************")
         let wasHidden = videoController.isHidden
         videoController.forwardButtonTapped(0)
         shouldControllerAppear(appear: true)

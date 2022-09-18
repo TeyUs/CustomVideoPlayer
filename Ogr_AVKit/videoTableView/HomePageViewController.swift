@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 import AVFoundation
 
-class VideoViewController: UIViewController {
+class HomePageViewController: UIViewController {
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return .portrait }
 
@@ -20,23 +20,25 @@ class VideoViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
+
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
 }
 
-extension VideoViewController: UITableViewDelegate, UITableViewDataSource{
+extension HomePageViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell", for: indexPath) as! VideoTableViewCell
-        cell.prepareCell(rowAt: indexPath.row)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell", for: indexPath) as! HomePageTableViewCell
+        cell.prepareCell(video: videos[indexPath.row])
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        MARK: Starting Video Controller
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "VideoScreenViewController") as! VideoScreenViewController
         vc.video = videos[indexPath.row]
         vc.modalPresentationStyle = .fullScreen

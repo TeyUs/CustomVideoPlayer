@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Video View Controller-->
+        <!--Home Page View Controller-->
         <scene sceneID="sHn-Zb-fgb">
             <objects>
-                <viewController id="KnY-R3-RG8" customClass="VideoViewController" customModule="Ogr_AVKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KnY-R3-RG8" customClass="HomePageViewController" customModule="Ogr_AVKit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eRJ-bj-YL2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoCell" rowHeight="193" id="TxH-E1-ytL" customClass="VideoTableViewCell" customModule="Ogr_AVKit" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoCell" rowHeight="193" id="TxH-E1-ytL" customClass="HomePageTableViewCell" customModule="Ogr_AVKit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="193"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TxH-E1-ytL" id="SEC-wJ-akh">

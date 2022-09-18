@@ -27,28 +27,8 @@ class VideoControlsView: UIView {
         allView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
 
-
-//
-//    func createDoubleCheckTapGesture(){
-//        let leftView = UIView()
-//        leftView.frame = CGRect(x: 0, y: 0 , width: (self.allView.frame.height / 2), height: (self.allView.frame.width))
-//        let leftTap = UITapGestureRecognizer(target: self, action: #selector(backwardButtonTapped(_:)))
-//        leftTap.numberOfTapsRequired = 2
-//        allView.addSubview(leftView)
-//        leftView.addGestureRecognizer(leftTap)
-//
-//        let rightView = UIView()
-//        rightView.frame = CGRect(x: (self.allView.frame.height / 2), y: 0, width: (self.allView.frame.height), height: (self.allView.frame.width))
-//        let rightTap = UITapGestureRecognizer(target: self, action: #selector(forwardButtonTapped(_:)))
-//        rightTap.numberOfTapsRequired = 2
-//        rightView.addGestureRecognizer(rightTap)
-//        rightView.addSubview(rightView)
-//    }
-
     var viewController: VideoScreenViewController?
-    var timer = Timer()
     var player: AVPlayer!
-    var timeObserver: Any?
     var is_start = true
 
     @IBOutlet var backBTN: UIButton!
@@ -66,7 +46,7 @@ class VideoControlsView: UIView {
         viewController = delegate
         self.player = player
         let interval = CMTime(seconds: 0.1, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-        timeObserver = player.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { elapsedTime in
+        _ = player.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { elapsedTime in
             self.updateVideoPlayerSlider()
         })
         backBTN.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 50), forImageIn: .normal)
@@ -75,23 +55,7 @@ class VideoControlsView: UIView {
         createDoubleCheckTapGesture()
     }
 
-    private func createDoubleCheckTapGesture(){
-        let rightTap = UITapGestureRecognizer(target: self, action: #selector(jumpForward))
-        rightTap.numberOfTapsRequired = 2
-        viewController?.tap.require(toFail: rightTap)
-        rightTapArea.addGestureRecognizer(rightTap)
-
-        let leftTap = UITapGestureRecognizer(target: self, action: #selector(jumpBackward))
-        leftTap.numberOfTapsRequired = 2
-        viewController?.tap.require(toFail: leftTap)
-        leftTapArea.addGestureRecognizer(leftTap)
-    }
-
-
     func updateVideoPlayerSlider() {
-//        guard let currentTime = player?.currentTime() else { return }
-//        let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
-//        scrubber.value = Float(currentTimeInSeconds)
         if let currentItem = player?.currentItem {
             let duration = currentItem.duration
             if CMTIME_IS_INVALID(duration) || duration.value == 0 { return;}
@@ -157,6 +121,20 @@ class VideoControlsView: UIView {
         print(#function)
         player = nil
         viewController?.popThePage()
+    }
+
+//    MARK: DoubleTap Management(time jump) when Controller UI Opened
+
+    private func createDoubleCheckTapGesture(){
+        let rightTap = UITapGestureRecognizer(target: self, action: #selector(jumpForward))
+        rightTap.numberOfTapsRequired = 2
+        viewController?.tap.require(toFail: rightTap)
+        rightTapArea.addGestureRecognizer(rightTap)
+
+        let leftTap = UITapGestureRecognizer(target: self, action: #selector(jumpBackward))
+        leftTap.numberOfTapsRequired = 2
+        viewController?.tap.require(toFail: leftTap)
+        leftTapArea.addGestureRecognizer(leftTap)
     }
 
     @IBAction func backwardButtonTapped(_ sender: Any) {

@@ -41,11 +41,6 @@ extension Video{
         return cmTime
     }
 
-    func getWithTime() -> Self{
-        self.lastDuration = getTime()
-        return self
-    }
-
     private func saveTime(time: CMTime){
         UserDefaults.standard.set(CMTimeGetSeconds(time), forKey: self.name)
     }
